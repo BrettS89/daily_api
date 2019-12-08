@@ -4,7 +4,7 @@ const errorHandler = require('../../utils/errorHandler');
 const userAuth = require('../../utils/userAuth');
 const isLoggedInService = require('../../services/user/isLoggedIn');
 
-exports.isLoggedIn = async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const user = await userAuth(req.header('authorization'));
     const foundUser = await User.findById(user._id);

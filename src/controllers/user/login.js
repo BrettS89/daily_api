@@ -2,6 +2,7 @@ const User = require('../../models/User');
 const successHandler = require('../../utils/successHandler');
 const errorHandler = require('../../utils/errorHandler');
 const loginService = require('../../services/user/login');
+const registerService = require('../../services/user/register');
 
 module.exports = async ({ body: { email, password } }, res) => {
   try {
