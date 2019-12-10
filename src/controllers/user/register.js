@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
     const hashedPassword = registerService.hashPassword(req.body.password);
     req.body.password = hashedPassword;
     const user = await registerService.createUserInstance(req.body).save();
+    await registerService.followSelf(user._id).save();
     const token = registerService.createToken(user._id);
     successHandler(res, 201, null, token);
   } catch(e) {
