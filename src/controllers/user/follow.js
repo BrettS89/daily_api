@@ -1,14 +1,14 @@
 const successHandler = require('../../utils/successHandler');
 const errorHandler = require('../../utils/errorHandler');
 const userAuth = require('../../utils/userAuth');
-const getUsersService = require('../../services/users/getUsers');
+const followService = require('../../services/user/follow');
 
 module.exports = async (req, res) => {
   try {
     const user = await userAuth(req.header('authorization'));
-    const users = await getUsersService.getUsersQuery(user._id, Number(req.query.offset));
-    successHandler(res, 200, users, null);
+    await followService.createFollow(user._id, req.body.id).save();
+    successHandler(res, 201, null, null);
   } catch(e) {
-    errorHandler(res, e, 'getUsers');
+    errorHandler(res, e, 'follow');
   }
 };

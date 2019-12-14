@@ -23,9 +23,9 @@ exports.getPostsQuery = (userId, offset = 0) => {
         'as': "followArray",
       },
     },
-    {
-      '$match': { 'followArray': { '$ne': [] } }
-    },
+    // {
+    //   '$match': { 'followArray': { '$ne': [] } }
+    // },
   ])
     .sort({ _id: 'desc' })
     .skip(offset)

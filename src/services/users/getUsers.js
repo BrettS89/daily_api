@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
 const User = require('../../models/User');
 
 exports.getUsersQuery = (userId, offset = 0) => {
+  userId = mongoose.Types.ObjectId(userId);
   return User.aggregate([
     { 
       $match: { '_id': { $ne: userId } }
@@ -15,6 +17,7 @@ exports.getUsersQuery = (userId, offset = 0) => {
                 { '$and':
                    [
                      { '$eq': [ "$followee",  "$$id" ] },
+                     { '$eq': [ "$follower",  userId ] },
                    ]
                 }
              }
@@ -26,8 +29,11 @@ exports.getUsersQuery = (userId, offset = 0) => {
     {
       '$match': { 'followArray': { '$eq': [] } }
     },
+    { '$sort': {
+        "_id": -1,
+      }
+    },
+    { $skip: offset },
+    { $limit: 12 },
   ])
-  .skip(offset)
-  .sort({ 'dateCreated': 'desc' })
-  .lean()
 };
