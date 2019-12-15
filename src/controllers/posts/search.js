@@ -1,12 +1,12 @@
 const errorHandler = require('../../utils/errorHandler');
 const successHandler = require('../../utils/successHandler');
 const userAuth = require('../../utils/userAuth');
-const discoverPostsService = require('../../services/posts/discover');
+const searchPostsService = require('../../services/posts/search');
 
 module.exports = async (req, res) => {
   try {
     const user = await userAuth(req.header('authorization'));
-    let posts = await discoverPostsService.getPostsQuery(user._id, Number(req.query.offset));
+    let posts = await searchPostsService.searchQuery(user._id, Number(req.query.offset), req.query.term);
     posts = posts.map(p => {
       return p.followArray.length
         ? { ...p, following: true }
@@ -14,6 +14,6 @@ module.exports = async (req, res) => {
     });
     successHandler(res, 200, posts, null);
   } catch(e) {
-    errorHandler(res, e, 'discover');
+    errorHandler(res, e, 'searchPosts');
   }
 };

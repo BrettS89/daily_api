@@ -4,7 +4,7 @@ const User = require('../../models/User');
 exports.getUsersQuery = (userId, offset = 0) => {
   userId = mongoose.Types.ObjectId(userId);
   return User.aggregate([
-    { 
+    {
       $match: { '_id': { $ne: userId } }
     },
     {
