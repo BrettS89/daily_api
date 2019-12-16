@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   logins: { type: Number, default: 0 },
   isAdmin: { type: Boolean, default: false },
+  followers: { type: Number, default: 0 },
+  following: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model('User', userSchema);

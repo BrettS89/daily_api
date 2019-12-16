@@ -4,10 +4,10 @@ const Post = require('../../models/Post');
 exports.searchQuery = (userId, offset = 0, term) => {
   userId = mongoose.Types.ObjectId(userId);
   return Post.aggregate([
-    { $match: { $text: { $search:  term } } },
-    { $sort: { 'likes': -1 } },
+    { $match: { $text: { $search: term } } },
+    { $sort: { '_id': -1 } },
     { $skip: offset },
-    { $limit: 20 },
+    { $limit: 6 },
     {
       '$lookup': {
         'from': 'follows',

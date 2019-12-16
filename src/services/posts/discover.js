@@ -6,7 +6,7 @@ exports.getPostsQuery = (userId, offset = 0) => {
   return Post.aggregate([
     { $sort: { '_id': -1 } },
     { $skip: offset },
-    { $limit: 20 },
+    { $limit: 6 },
     {
       '$lookup': {
         'from': 'follows',
