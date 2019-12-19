@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
         ? { ...p, following: true }
         : p;
     });
+    posts = discoverPostsService.setIfLiked(posts);
     successHandler(res, 200, posts, null);
   } catch(e) {
     errorHandler(res, e, 'discover');

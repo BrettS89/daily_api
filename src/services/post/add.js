@@ -14,7 +14,7 @@ exports.createPost = data => {
 
 exports.checkDate = latestPost => {
   if (!latestPost.length) return;
-  if (latestPost.day === getIsoDate()) {
+  if (latestPost[0].day === getIsoDate()) {
     throw {
       error: new Error('You can only post once a day'),
       status: 400,

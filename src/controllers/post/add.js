@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     const latestPost = await Post.find({ userId: user._id })
       .sort({ dateCreated: 'desc' })
       .limit(1);
-      
+
     addPostService.checkDate(latestPost);
     user = await User.findById(user._id);
     req.body.firstName = user.firstName;

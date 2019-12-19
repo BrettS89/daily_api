@@ -26,5 +26,37 @@ exports.getPostsQuery = (userId, offset = 0) => {
         'as': "followArray",
       },
     },
+    {
+      $lookup:
+         {
+           from: "likes",
+           let: { id: "$_id" },
+           pipeline: [
+              { $match:
+                 { $expr:
+                    { $and:
+                       [
+                         { $eq: [ "$postId",  "$$id" ] },
+                         { $eq: [ "$userId", userId ] }
+                       ]
+                    }
+                 }
+              },
+           ],
+           as: "likesArr"
+         }
+    }
   ])
+};
+
+exports.setIfLiked = posts => {
+  return posts.map(p => {
+    if (p.likesArr.length) {
+      return {
+        ...p,
+        liked: true,
+      };
+    }
+    return p;
+  });
 };

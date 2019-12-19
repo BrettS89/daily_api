@@ -7,7 +7,8 @@ const getPostsService = require('../../services/posts/get');
 module.exports = async (req, res) => {
   try {
     const user = await userAuth(req.header('authorization'));
-    const posts = await getPostsService.getPostsQuery(user._id, Number(req.query.offset));
+    let posts = await getPostsService.getPostsQuery(user._id, Number(req.query.offset));
+    posts = getPostsService.setIfLiked(posts);
     successHandler(res, 200, posts, null);
   } catch(e) {
     errorHandler(res, e, 'getPosts');
