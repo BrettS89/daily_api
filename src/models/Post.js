@@ -11,6 +11,7 @@ const postSchema = new mongoose.Schema({
   photo: { type: String, default: null },
   likes: { type: Number, default: 0 },
   comments: { type: Number, default: 0 },
+  flagged: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model('Post', postSchema);

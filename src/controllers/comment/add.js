@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
       .sort({ _id: 'desc' })
       .limit(1);
     addCommentService.checkDate(latestComment);
-    const comment = await addCommentService.create(user._id, req.body.post, req.body.text).save();
+    const comment = await addCommentService.create(user._id, req.body.post, req.body.comment).save();
     const post = await Post.findById(req.body.post);
     post.comments += 1;
     await post.save();
