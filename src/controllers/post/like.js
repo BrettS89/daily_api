@@ -3,6 +3,7 @@ const successHandler = require('../../utils/successHandler');
 const userAuth = require('../../utils/userAuth');
 const Post = require('../../models/Post');
 const likePostService = require('../../services/post/like');
+const addNotification = require('../../utils/addNotification');
 
 module.exports = async (req, res) => {
   try {
@@ -19,6 +20,7 @@ module.exports = async (req, res) => {
     post.likes += 1;
     await post.save();
     successHandler(res, 200, null, null);
+    addNotification('like', post.userId, user._id, req.body.post);
   } catch(e) {
     errorHandler(res, e, 'like');
   }

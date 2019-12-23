@@ -4,6 +4,7 @@ const userAuth = require('../../utils/userAuth');
 const addCommentService = require('../../services/comment/add');
 const Comment = require('../../models/Comment');
 const Post = require('../../models/Post');
+const addNotification = require('../../utils/addNotification');
 
 module.exports = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ module.exports = async (req, res) => {
     post.comments += 1;
     await post.save();
     successHandler(res, 201, comment, null);
+    addNotification('comment', post.userId, user._id, req.body.post);
   } catch(e) {
     errorHandler(res, e, 'addComment');
   }
