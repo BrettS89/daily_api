@@ -7,5 +7,6 @@ router.get('/isloggedin', Controllers.isLoggedIn);
 router.post('/follow', Controllers.follow);
 router.delete('/unfollow', Controllers.unfollow);
 router.patch('/addprofilephoto', Controllers.addProfilePhoto);
+router.get('/getuserdata', Controllers.getUserData);
 
 module.exports = router;

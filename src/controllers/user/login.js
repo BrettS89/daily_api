@@ -21,7 +21,7 @@ module.exports = async ({ body: { email, password } }, res) => {
       };
     }
     const token = registerService.createToken(user._id);
-    successHandler(res, 200, null, token);
+    successHandler(res, 200, user, token);
   } catch(e) {
     errorHandler(res, e, 'login');
   }

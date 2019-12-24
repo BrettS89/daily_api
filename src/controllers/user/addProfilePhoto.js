@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
     const user = await User.findById(_id);
     user.photo = req.query.photo;
     const updatedUser = await user.save();
-    console.log(updatedUser);
     successHandler(res, 200, updatedUser, null);
   } catch(e) {
     errorHandler(res, e, 'addProfilePhoto');
