@@ -31,35 +31,54 @@ exports.getPostsQuery = (userId, offset = 0) => {
     { $limit: 26 },
     {
       $lookup:
-         {
-           from: "likes",
-           let: { id: "$_id" },
-           pipeline: [
-              { $match:
-                 { $expr:
-                    { $and:
-                       [
-                         { $eq: [ "$postId",  "$$id" ] },
-                         { $eq: [ "$userId", userId ] }
-                       ]
-                    }
-                 }
-              },
-           ],
-           as: "likesArr"
-         }
-    }
+        {
+          from: "likes",
+          let: { id: "$_id" },
+          pipeline: [
+            { $match:
+                { $expr:
+                  { $and:
+                      [
+                        { $eq: [ "$postId",  "$$id" ] },
+                        { $eq: [ "$userId", userId ] }
+                      ]
+                  }
+                }
+            },
+          ],
+          as: "likesArr"
+        }
+    },
+    {
+      $lookup:
+        {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'user',
+        }
+   },
   ])
 };
 
-exports.setIfLiked = posts => {
+exports.formatData = posts => {
   return posts.map(p => {
+    let post
+    const u = p.user[0];
     if (p.likesArr.length) {
-      return {
+      post = {
         ...p,
         liked: true,
       };
+    } else {
+      post = p;
     }
-    return p;
+    delete post.likesArr;
+    delete post.user;
+    return {
+      ...post,
+      fullName: u.fullName,
+      profilePhoto: u.photo,
+    };
   });
 };

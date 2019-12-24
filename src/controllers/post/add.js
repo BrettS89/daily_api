@@ -14,10 +14,10 @@ module.exports = async (req, res) => {
       .limit(1);
 
     addPostService.checkDate(latestPost);
-    user = await User.findById(user._id);
-    req.body.firstName = user.firstName;
-    req.body.lastName = user.lastName;
-    req.body.profilePhoto = user.photo;
+    // user = await User.findById(user._id);
+    // req.body.firstName = user.firstName;
+    // req.body.lastName = user.lastName;
+    // req.body.profilePhoto = user.photo;
     const post = await addPostService.createPost(req.body).save();
     successHandler(res, 201, post, null);
   } catch(e) {

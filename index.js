@@ -13,6 +13,7 @@ const postsRoutes = require('./src/routes/posts');
 const commentRoutes = require('./src/routes/comment');
 const commentsRoutes = require('./src/routes/comments');
 const notificationsRoutes = require('./src/routes/notifications');
+const s3Routes = require('./src/routes/s3');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoUri, { useNewUrlParser: true });
@@ -27,6 +28,7 @@ app.use('/posts', postsRoutes);
 app.use('/comment', commentRoutes);
 app.use('/comments', commentsRoutes);
 app.use('/notifications', notificationsRoutes);
+app.use('/s3', s3Routes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

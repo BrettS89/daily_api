@@ -5,8 +5,6 @@ exports.createPost = data => {
   return new Post({
     day: getIsoDate(),
     userId: data.userId,
-    firstName: data.firstName,
-    lastName: data.lastName,
     text: data.text,
     photo: data.photo,
   });
