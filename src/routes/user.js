@@ -8,5 +8,6 @@ router.post('/follow', Controllers.follow);
 router.delete('/unfollow', Controllers.unfollow);
 router.patch('/addprofilephoto', Controllers.addProfilePhoto);
 router.get('/getuserdata', Controllers.getUserData);
+router.patch('/addusername', Controllers.addUsername);
 
 module.exports = router;

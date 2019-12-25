@@ -5,6 +5,7 @@ const follow = require('./follow');
 const unfollow = require('./unfollow');
 const addProfilePhoto = require('./addProfilePhoto');
 const getUserData = require('./getUserData');
+const addUsername = require('./addUsername');
 
 module.exports = {
   login,
@@ -14,4 +15,5 @@ module.exports = {
   unfollow,
   addProfilePhoto,
   getUserData,
+  addUsername,
 };
