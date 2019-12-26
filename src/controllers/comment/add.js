@@ -17,7 +17,8 @@ module.exports = async (req, res) => {
     const post = await Post.findById(req.body.post);
     post.comments += 1;
     await post.save();
-    successHandler(res, 201, comment, null);
+    const savedComment = await Comment.findById(comment._id).populate('userId', ['fullName', 'photo']);
+    successHandler(res, 201, savedComment, null);
     addNotification('comment', post.userId, user._id, req.body.post);
   } catch(e) {
     errorHandler(res, e, 'addComment');
